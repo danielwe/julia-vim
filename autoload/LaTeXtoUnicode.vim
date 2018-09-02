@@ -62,15 +62,6 @@ function! s:L2U_SetupGlobal()
       let g:latex_to_unicode_auto = 0
   endif
 
-  " YouCompleteMe and neocomplcache/neocomplete/deoplete plug-ins do not work well
-  " with LaTeX symbols suggestions
-  if exists("g:loaded_youcompleteme") ||
-        \ exists("g:loaded_neocomplcache") ||
-        \ exists("g:loaded_neocomplete") ||
-        \ exists("g:loaded_deoplete")
-    let g:latex_to_unicode_suggestions = 0
-  endif
-
   " A hack to forcibly get out of completion mode: feed
   " this string with feedkeys()
   if has("win32") || has("win64")
@@ -472,7 +463,8 @@ function! s:L2U_SetTab(wait_insert_enter)
   if a:wait_insert_enter && !get(g:, "did_insert_enter", 0)
     return
   endif
-  if !get(g:, "latex_to_unicode_tab", 1) || !b:l2u_enabled
+
+  if !b:l2u_enabled
     return
   endif
 
@@ -481,6 +473,10 @@ function! s:L2U_SetTab(wait_insert_enter)
     let b:prev_omnifunc = &omnifunc
   endif
   setlocal omnifunc=LaTeXtoUnicode#omnifunc
+
+  if !get(g:, "latex_to_unicode_tab", 1)
+    return
+  endif
 
   call s:L2U_SetFallbackMapping('<Tab>', s:l2u_fallback_trigger)
   imap <buffer> <Tab> <Plug>L2UTab
@@ -528,7 +524,7 @@ function! LaTeXtoUnicode#AutoSub(...)
     endif
     return ''
   endif
-  let bs = (vc != "\n")
+  let bs = (index(["\n", ""], vc) == -1)
   let l = getline(lnum)[0 : col1-1-bs] . v:char
   let col0 = match(l, '\\\%([_^]\?[A-Za-z]\+\%' . col1 . 'c\%([^A-Za-z]\|$\)\|[_^]\%([0-9()=+-]\)\%' . col1 .'c\%(.\|$\)\)')
   if col0 == -1
