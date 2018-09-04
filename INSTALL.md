@@ -5,7 +5,7 @@
 ``` bash
 cd ~/.vim
 mkdir -p bundle && cd bundle
-git clone git://github.com/JuliaEditorSupport/julia-vim.git
+git clone git://github.com/danielwe/julia-vim.git
 ```
 
 ### Using [vundle]
@@ -13,7 +13,7 @@ git clone git://github.com/JuliaEditorSupport/julia-vim.git
 Add a new plugin line to your `.vimrc`:
 
 ``` vim
-Plugin 'JuliaEditorSupport/julia-vim'
+Plugin 'danielwe/julia-vim'
 ```
 
 Run `vim` and update your bundles:
@@ -27,7 +27,7 @@ Run `vim` and update your bundles:
 Add a new plugin line to your `.vimrc`:
 
 ``` vim
-Plug 'JuliaEditorSupport/julia-vim'
+Plug 'danielwe/julia-vim'
 ```
 
 **Note:** do *not* use the on-demand loading feature of vim-plug.
@@ -48,7 +48,7 @@ Run `vim` and update your bundles:
 Copy (or symlink) the contents of this repository into the vim application support directory:
 
 ``` bash
-git clone git://github.com/JuliaEditorSupport/julia-vim.git
+git clone git://github.com/danielwe/julia-vim.git
 cd julia-vim
 mkdir -p ~/.vim
 cp -R * ~/.vim

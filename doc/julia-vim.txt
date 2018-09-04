@@ -1,6 +1,7 @@
 *julia-vim.txt*  Support for Julia in Vim
 
-Author:  Carlo Baldassi <carlobaldassi@gmail.com>
+Authors:  Carlo Baldassi <carlobaldassi@gmail.com>
+          Daniel Wennberg <daniel.wennberg@gmail.com>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
@@ -24,7 +25,8 @@ License: MIT license  {{{
 CONTENTS					*julia-vim*
 
 Introduction	                    |julia-vim-introduction|
-Chosing Julia version               |julia-vim-version|
+  Note on Unicode substitution      |julia-vim-unicode|
+Choosing Julia version              |julia-vim-version|
 Block-wise movements/objects        |julia-vim-blocks|
   Keyword-oriented movements        |julia-vim-blocks-move|
   Block-oriented movements          |julia-vim-blocks-moveblock|
@@ -44,16 +46,21 @@ The julia-vim plug-in provides:
   - support for the |matchit| plugin
   - support for Julia block-wise movements (i.e. jumping around between
     Julia blocks like if/end, function/end etc.) and block text-objects
-  - facilities for conversion of LaTeX entries to Unicode symbols which mimic
-    and extend what the Julia REPL and the IJulia notebook interface do.
-    Optionally, this functionality can be used with all file types, not
-    just Julia files. See |julia-vim-L2U|.
   - a keymapping |K| to refer julia documents.
 
 This help file documents: 1) how to choose the Julia version for syntax
 highlighting, and 2) the block-wise movements and objects, how they work and
 what variables can be used to enable/disable/tweak them.
-The LaTeX-to-Unicode facilities are documented in |julia-vim-L2U|.
+
+------------------------------------------------------------------------------
+NOTE ON UNICODE SUBSTITUTION                        *julia-vim-unicode*
+
+This plugin does not provide expansion of LaTeX keywords to Unicode
+characters. For this we recommend using UltiSnips [1] with
+vim-unicode-snippets [2]; this provides the exact same map from triggers to
+Unicode characters as the julia REPL, and integrates with the snippet
+suggestion, completion, and expansion experience provided by the plugins you
+may already be using.
 
 ==============================================================================
 CHOOSING JULIA VERSION                                   *julia-vim-version*
@@ -440,5 +447,11 @@ ABOUT                                                     *julia-vim-about*
 Grab the latest version or report a bug on GitHub:
 
 http://github.com/JuliaEditorSupport/julia-vim
+
+===============================================================================
+REFERENCES                                              *julia-vim-references*
+
+[1] https://github.com/SirVer/ultisnips
+[2] https://github.com/danielwe/vim-unicode-snippets
 
  vim:tw=78:et:ft=help:norl:

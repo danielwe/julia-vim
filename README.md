@@ -8,9 +8,9 @@
 
 [Julia]: http://julialang.org/
 [Installation instructions]: INSTALL.md
-[YouCompleteMe]: https://github.com/Valloric/YouCompleteMe
+[UltiSnips]: https://github.com/SirVer/UltiSnips
+[vim-unicode-snippets]: https://github.com/danielwe/vim-unicode-snippets
 [`sensible.vim`]: https://github.com/tpope/vim-sensible
-[`a27c6ce`]: https://github.com/danielwe/julia-vim/commit/a27c6ce71e19ebf161abba5974405dd74214ba2e
 
 ## Complete documentation
 
@@ -18,42 +18,9 @@ The full documentation is available from Vim; after installation, type `:help
 julia-vim`. The remainder of this README gives an overview of some of the
 features.
 
-* [Latex-to-Unicode substitutions](#latex-to-unicode-substitutions)
 * [Block-wise movements and block text-objects](#block-wise-movements-and-block-text-objects)
 * [Changing syntax highlighting depending on the Julia version](#changing-syntax-highlighting-depending-on-the-julia-version)
-
-## LaTeX-to-Unicode substitutions
-
-_This is an unstable fork._ Everything about LaTeX-to-Unicode is in flux at the
-moment. Instead of trying to mimick the behavior in the julia shell, the goal
-is to write an omnifunc that works with [YouCompleteMe] and similar
-plugins for suggestions, while keeping the issue of substitution separate, as
-this is conceptually more of a snippet- than completion-like functionality
-(perhaps actually using snippets is the way to go?). The unicode functionality
-will probably be refactored into a separate plugin in the end.
-
-As of [`a27c6ce`] a workable integration with YouCompleteMe can be obtained by
-adding the following to your `.vimrc` (hit `<C-Y>` to trigger
-substitution&mdash;this is the default key to accept a suggested completion in
-vim):
-```vim
-let g:latex_to_unicode_tab = 0
-let g:latex_to_unicode_eager = 0
-augroup unicode
-  autocmd!
-  autocmd FileType julia
-        \ imap <silent> <buffer> <expr> <C-Y> LaTeXtoUnicode#AutoSub()
-augroup END
-if !exists('g:ycm_semantic_triggers')
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers.julia = ['re!\\\S+']
-```
-If you want to try as-you-go substitution, remove the `augroup` and add this
-line instead:
-```vim
-let g:latex_to_unicode_auto = 1
-```
+* [Note on Unicode substitution](#note-on-unicode-substitution)
 
 ## Block-wise movements and block text-objects
 
@@ -102,3 +69,11 @@ You can also switch version for a particular buffer, by using the
 ```vim
 :call julia#set_syntax_version("0.6")
 ```
+
+## Note on Unicode substitution
+
+This plugin does not provide expansion of LaTeX keywords to Unicode characters.
+For this we recommend using [UltiSnips] with [vim-unicode-snippets]; this
+provides the exact same map from triggers to Unicode characters as the julia
+REPL, and integrates with the snippet suggestion, completion, and expansion
+experience provided by the plugins you may already be using.
